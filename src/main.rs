@@ -37,15 +37,16 @@ fn main() {
         Ok(()) => (),
         Err(e) => {
             println!("Error!");
-            println!("{:?}", e)
+            println!("{:?}", e);
+            std::process::exit(1);
         }
     }
 }
 
 fn wrapped_main() -> Result<(), AppError> {
     let options = Cli::parse();
+    println!("Processing {}", options.input.display());
     let specifications = specs::load_specs(&options.specfile)?;
-    println!("Loaded specs: {:?}", specifications);
     let image = load_image(&options.input)?;
 
     let mut output = OutputResult::new();
@@ -57,7 +58,7 @@ fn wrapped_main() -> Result<(), AppError> {
     }
     write_results(&output, &options)?;
 
-    println!("{:?}", output);
+    println!("Successfully completed");
     Ok(())
 }
 

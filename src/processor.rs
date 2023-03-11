@@ -1,6 +1,6 @@
 use crate::errors::AppError;
-use crate::specs::{self, ConcretizedTileSpecs, Specifications, TileSpec};
-use crate::{OutputResult, OutputTileData};
+use crate::specs::ConcretizedTileSpecs;
+use crate::OutputTileData;
 use image::RgbImage;
 
 pub fn process_tile(
@@ -21,7 +21,7 @@ pub fn process_tile(
                 .iter()
                 .position(|element| *element == combined);
 
-            match (color_index) {
+            match color_index {
                 None => {
                     println!("Color info for not found color: {:#08x}", combined);
                     return Err(AppError::CannotFindColor {
@@ -53,7 +53,7 @@ pub fn process_tile(
     }
 
     // print stats
-    println!("{}: {} bytes", tile_spec.name, resulting_bytes.len());
+    println!("- {}: {} bytes", tile_spec.name, resulting_bytes.len());
 
     // result
     Ok(OutputTileData::new(resulting_bytes, tile_spec))
