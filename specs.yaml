@@ -1,0 +1,43 @@
+tile_width: 5
+tile_height: 5
+colors_1bpp: [0, 0]
+colors_2bpp: [0xFFFFFF, 0xc3c3c3, 0xed1c24, 0x000000]
+default_bpp: 2
+tiles:
+  - name: conveyor
+    x: 0
+    y: 0
+  - name: drill
+    x: 1
+    y: 0
+  - name: furnace
+    x: 2
+    y: 0
+  - name: grinder
+    x: 3
+    y: 0
+  - name: glass
+    x: 4
+    y: 0
+  - name: plate
+    x: 5
+    y: 0
+  - name: wire
+    x: 6
+    y: 0
+  - name: box
+    x: 7
+    y: 0
+  - name: generator
+    x: 8
+    y: 0
+  - name: depot
+    x: 9
+    y: 0
+    width: 2
+    height: 2
+  - name: rocket
+    x: 11
+    y: 0
+    width: 2
+    height: 2
