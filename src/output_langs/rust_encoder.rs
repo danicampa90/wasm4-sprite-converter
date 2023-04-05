@@ -30,17 +30,17 @@ impl Encoder for RustEncoder {
             // end byte array
             writer.write_str("];\n")?;
             writer.write_str(&format!(
-                "pub const TILE_{}_WIDTH: u8 = {};\n",
+                "pub const TILE_{}_WIDTH: u32 = {};\n",
                 tile.name(),
                 tile.width_pixels()
             ))?;
             writer.write_str(&format!(
-                "pub const TILE_{}_HEIGHT: u8 = {};\n",
+                "pub const TILE_{}_HEIGHT: u32 = {};\n",
                 tile.name(),
                 tile.height_pixels()
             ))?;
             writer.write_str(&format!(
-                "pub const TILE_{}_BPP: u8 = {};\n",
+                "pub const TILE_{}_BPP: u32 = {};\n",
                 tile.name(),
                 tile.bpp()
             ))?;

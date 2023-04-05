@@ -39,14 +39,15 @@ pub fn process_tile(
 
     // encode the paletted image into packed bytes.
     let mut resulting_bytes = vec![];
-    for big_step_idx in (0..pixel_palette_indexes.len()).step_by(4) {
+    for big_step_idx in (0..pixel_palette_indexes.len()).step_by(8/tile_spec.bpp) {
         let mut byte: u8 = 0;
-        for intrabyte_idx in 0..4 {
+        for intrabyte_idx in 0..(8/tile_spec.bpp) {
             byte = byte << tile_spec.bpp;
             let pixel = pixel_palette_indexes
                 .get(intrabyte_idx + big_step_idx)
                 .cloned();
             byte |= pixel.unwrap_or(0) as u8;
+            //println!("{:08b}: {:?}",byte, pixel )
         }
         //println!("{:08b}", byte);
         resulting_bytes.push(byte);
