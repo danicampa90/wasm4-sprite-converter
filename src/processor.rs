@@ -1,10 +1,10 @@
 use crate::errors::AppError;
-use crate::specs::ConcretizedTileSpecs;
+use crate::specs::MergedSpriteSpecs;
 use crate::OutputTileData;
 use image::RgbImage;
 
 pub fn process_tile(
-    tile_spec: &ConcretizedTileSpecs,
+    tile_spec: &MergedSpriteSpecs,
     image: &RgbImage,
 ) -> Result<OutputTileData, AppError> {
     let mut pixel_palette_indexes = vec![];

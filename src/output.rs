@@ -1,8 +1,16 @@
-use crate::specs::ConcretizedTileSpecs;
+use clap::ValueEnum;
+
+use crate::specs::MergedSpriteSpecs;
 
 #[derive(Debug)]
 pub struct OutputResult {
     tiles: Vec<OutputTileData>,
+}
+
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
+pub enum OutputLanguage {
+    // Rust output
+    Rust
 }
 
 #[derive(Debug)]
@@ -28,7 +36,7 @@ impl OutputResult {
 }
 
 impl OutputTileData {
-    pub fn new(bytes: Vec<u8>, specs: &ConcretizedTileSpecs) -> Self {
+    pub fn new(bytes: Vec<u8>, specs: &MergedSpriteSpecs) -> Self {
         Self {
             bytes,
             name: specs.name.clone(),
