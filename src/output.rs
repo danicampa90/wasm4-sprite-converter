@@ -2,19 +2,30 @@ use clap::ValueEnum;
 
 use crate::specs::MergedSpriteSpecs;
 
+
+/// holds all the output (encoded) tiles.
 #[derive(Debug)]
 pub struct OutputResult {
-    tiles: Vec<OutputTileData>,
+    tiles: Vec<EncodedSprite>,
 }
 
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
-pub enum OutputLanguage {
-    // Rust output
-    Rust
+impl OutputResult {
+    pub fn new() -> Self {
+        Self { tiles: vec![] }
+    }
+    pub fn iter(&self) -> impl Iterator<Item = &EncodedSprite> {
+        self.tiles.iter()
+    }
+
+    pub fn add(&mut self, tile: EncodedSprite) {
+        self.tiles.push(tile)
+    }
 }
 
+
+/// Holds the data of a sprite encoded in the correct bits per pixel.
 #[derive(Debug)]
-pub struct OutputTileData {
+pub struct EncodedSprite {
     bytes: Vec<u8>,
     width_px: usize,
     height_px: usize,
@@ -22,20 +33,16 @@ pub struct OutputTileData {
     bpp: usize,
 }
 
-impl OutputResult {
-    pub fn new() -> Self {
-        Self { tiles: vec![] }
-    }
-    pub fn iter(&self) -> impl Iterator<Item = &OutputTileData> {
-        self.tiles.iter()
-    }
 
-    pub fn add(&mut self, tile: OutputTileData) {
-        self.tiles.push(tile)
-    }
+/// Output language switch
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
+pub enum OutputLanguage {
+    // Rust output
+    Rust
 }
 
-impl OutputTileData {
+
+impl EncodedSprite {
     pub fn new(bytes: Vec<u8>, specs: &MergedSpriteSpecs) -> Self {
         Self {
             bytes,

@@ -8,13 +8,6 @@ pub enum AppError {
     CannotConvertToRGB,
     CannotFindColor { x: u32, y: u32, color: u32 },
 }
-/*
-impl From<serde_json::Error> for AppError {
-    fn from(value: serde_json::Error) -> Self {
-        AppError::SerdeError(value)
-    }
-}
-*/
 
 impl From<serde_yaml::Error> for AppError {
     fn from(value: serde_yaml::Error) -> Self {

@@ -1,9 +1,9 @@
-tile_width: 5
-tile_height: 5
+sprite_width: 5
+sprite_height: 5
 colors_1bpp: [0, 0]
 colors_2bpp: [0xFFFFFF, 0xc3c3c3, 0xed1c24, 0x000000]
 default_bpp: 2
-tiles:
+sprites:
   - name: conveyor
     x: 0
     y: 0

@@ -4,14 +4,14 @@ use std::path::PathBuf;
 mod errors;
 mod output;
 mod output_langs;
-mod processor;
+mod encoder;
 mod specs;
 mod cli_options;
 
 use clap::Parser;
 use errors::AppError;
 use image::RgbImage;
-use output::{OutputResult, OutputTileData};
+use output::{OutputResult, EncodedSprite, OutputLanguage};
 use output_langs::{ConsoleOutput, Encoder, FileOutput, OutputDevice, RustEncoder};
 use cli_options::Cli;
 
@@ -38,7 +38,7 @@ fn wrapped_main() -> Result<(), AppError> {
 
     for tile in specifications.sprites.iter() {
         let concrete_specs = MergedSpriteSpecs::new(tile, &specifications);
-        let output_tile = processor::process_tile(&concrete_specs, &image)?;
+        let output_tile = encoder::encode_sprite(&concrete_specs, &image)?;
         output.add(output_tile);
     }
     write_results(&output, &options)?;
@@ -54,7 +54,9 @@ fn write_results(output: &OutputResult, options: &Cli) -> Result<(), AppError> {
         Some(filename) => Box::new(FileOutput::new(filename)?),
     };
 
-    let encoder: Box<dyn Encoder> = Box::new(RustEncoder::new());
+    let encoder: Box<dyn Encoder> = match options.language.unwrap() { 
+        OutputLanguage::Rust => Box::new(RustEncoder::new())
+    };
     encoder.write_to(output, &mut *writer)?;
     Ok(())
 }
