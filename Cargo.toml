@@ -1,5 +1,5 @@
 [package]
-name = "tilemap2src"
+name = "wasm4_sprite_converter"
 version = "0.1.0"
 edition = "2021"
 

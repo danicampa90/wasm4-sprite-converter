@@ -5,10 +5,10 @@ use clap::{Parser, ValueEnum};
 #[derive(Parser)]
 #[command(
     about,
-    long_about = "Converts a tile map into a rust module containing the packed info."
+    long_about = "Converts a sprite map into a rust module containing the packed info."
 )]
 pub struct Cli {
-    /// Input specifications of the tiles to generate
+    /// Input specifications of the sprites to generate
     pub specifications: PathBuf,
 
     /// Input image

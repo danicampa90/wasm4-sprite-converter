@@ -12,7 +12,7 @@ use cli_options::{Cli, OutputLanguageChoice};
 use errors::AppError;
 use image::RgbImage;
 use output::{EncodedSprite, OutputResult};
-use output_langs::{ConsoleOutput, FileOutput, OutputDevice, OutputLanguage, RustEncoder};
+use output_langs::{ConsoleOutput, FileOutput, OutputDevice, OutputLanguage, RustOutputLanguage};
 
 use crate::specs::MergedSpriteSpecs;
 
@@ -35,10 +35,10 @@ fn wrapped_main() -> Result<(), AppError> {
 
     let mut output = OutputResult::new();
 
-    for tile in specifications.sprites.iter() {
-        let concrete_specs = MergedSpriteSpecs::new(tile, &specifications);
-        let output_tile = encoder::encode_sprite(&concrete_specs, &image)?;
-        output.add(output_tile);
+    for sprite in specifications.sprites.iter() {
+        let concrete_specs = MergedSpriteSpecs::new(sprite, &specifications);
+        let encoded_sprite = encoder::encode_sprite(&concrete_specs, &image)?;
+        output.add(encoded_sprite);
     }
     write_results(&output, &options)?;
 
@@ -53,7 +53,7 @@ fn write_results(output: &OutputResult, options: &Cli) -> Result<(), AppError> {
     };
 
     let encoder: Box<dyn OutputLanguage> = match options.language.unwrap() {
-        OutputLanguageChoice::Rust => Box::new(RustEncoder::new()),
+        OutputLanguageChoice::Rust => Box::new(RustOutputLanguage::new()),
     };
     encoder.write_to(output, &mut *writer)?;
     Ok(())

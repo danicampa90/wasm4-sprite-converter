@@ -1,23 +1,21 @@
-use clap::ValueEnum;
-
 use crate::specs::MergedSpriteSpecs;
 
-/// holds all the output (encoded) tiles.
+/// holds all the output (encoded) sprites.
 #[derive(Debug)]
 pub struct OutputResult {
-    tiles: Vec<EncodedSprite>,
+    sprites: Vec<EncodedSprite>,
 }
 
 impl OutputResult {
     pub fn new() -> Self {
-        Self { tiles: vec![] }
+        Self { sprites: vec![] }
     }
     pub fn iter(&self) -> impl Iterator<Item = &EncodedSprite> {
-        self.tiles.iter()
+        self.sprites.iter()
     }
 
-    pub fn add(&mut self, tile: EncodedSprite) {
-        self.tiles.push(tile)
+    pub fn add(&mut self, sprite: EncodedSprite) {
+        self.sprites.push(sprite)
     }
 }
 
@@ -29,13 +27,6 @@ pub struct EncodedSprite {
     height_px: usize,
     name: String,
     bpp: usize,
-}
-
-/// Output language switch
-#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
-pub enum OutputLanguage {
-    // Rust output
-    Rust,
 }
 
 impl EncodedSprite {

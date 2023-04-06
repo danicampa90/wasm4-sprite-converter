@@ -2,7 +2,7 @@ mod output_device;
 mod rust_language;
 
 pub use output_device::{ConsoleOutput, FileOutput};
-pub use rust_language::RustEncoder;
+pub use rust_language::RustOutputLanguage;
 
 use crate::{errors::AppError, output::OutputResult};
 
@@ -13,6 +13,9 @@ pub trait OutputDevice {
 
 /// Abstracts a target language.
 pub trait OutputLanguage {
-    fn write_to(&self, tiles: &OutputResult, writer: &mut dyn OutputDevice)
-        -> Result<(), AppError>;
+    fn write_to(
+        &self,
+        spritess: &OutputResult,
+        writer: &mut dyn OutputDevice,
+    ) -> Result<(), AppError>;
 }

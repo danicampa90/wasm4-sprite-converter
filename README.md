@@ -1,7 +1,7 @@
 # Wasm4 Sprite Converter
 A small texture conversion tool for converting an image in png to Rust source code containing the sprite data for WASM4.
 
-The tool takes in input a tile map in .png format (for example, "example.png") and a file decribing its content ("example.yaml") and ouputs Rust source code to the standard output.
+The tool takes in input a sprite map in .png format (for example, "example.png") and a file decribing its content ("example.yaml") and ouputs Rust source code to the standard output.
 
 It supports:
 - 1bpp format (2 colors)

@@ -16,7 +16,7 @@ pub fn encode_sprite(
             let x = (sprite_spec.x_pixels + x) as u32;
             let y = (sprite_spec.y_pixels + y) as u32;
             let pix = image.get_pixel(x, y);
-            let combined = (pix[0] as u32) << 16 | (pix[1] as u32) << 8 | (pix[2] as u32) << 0;
+            let combined = (pix[0] as u32) << 16 | (pix[1] as u32) << 8 | (pix[2] as u32);
             let color_index = sprite_spec
                 .colors
                 .iter()
@@ -47,7 +47,7 @@ pub fn encode_sprite(
         let mut byte: u8 = 0;
         // for each "intrabyte step" we bit-manipulate the byte that will be written in the outer loop
         for intrabyte_idx in 0..(8 / sprite_spec.bpp) {
-            byte = byte << sprite_spec.bpp;
+            byte <<= sprite_spec.bpp;
             let pixel = pixel_palette_indexes
                 .get(intrabyte_idx + big_step_idx)
                 .cloned();
