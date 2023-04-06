@@ -1,6 +1,5 @@
 use std::path::PathBuf;
 
-use crate::output::OutputLanguage;
 use clap::{Parser, ValueEnum};
 
 #[derive(Parser)]
