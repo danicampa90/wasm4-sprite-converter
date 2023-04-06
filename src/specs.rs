@@ -3,7 +3,6 @@ use std::{fs, path::PathBuf};
 use crate::AppError;
 use serde::Deserialize;
 
-
 /// Top level specifications file.
 /// Gets deserialized from yaml by serde.
 #[derive(Deserialize, Debug)]

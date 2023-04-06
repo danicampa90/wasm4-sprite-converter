@@ -2,7 +2,6 @@ use clap::ValueEnum;
 
 use crate::specs::MergedSpriteSpecs;
 
-
 /// holds all the output (encoded) tiles.
 #[derive(Debug)]
 pub struct OutputResult {
@@ -22,7 +21,6 @@ impl OutputResult {
     }
 }
 
-
 /// Holds the data of a sprite encoded in the correct bits per pixel.
 #[derive(Debug)]
 pub struct EncodedSprite {
@@ -33,14 +31,12 @@ pub struct EncodedSprite {
     bpp: usize,
 }
 
-
 /// Output language switch
 #[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
 pub enum OutputLanguage {
     // Rust output
-    Rust
+    Rust,
 }
-
 
 impl EncodedSprite {
     pub fn new(bytes: Vec<u8>, specs: &MergedSpriteSpecs) -> Self {

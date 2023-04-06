@@ -1,8 +1,7 @@
-
 use std::path::PathBuf;
 
-use clap::Parser;
-use crate::output::{OutputLanguage};
+use crate::output::OutputLanguage;
+use clap::{Parser, ValueEnum};
 
 #[derive(Parser)]
 #[command(
@@ -22,17 +21,23 @@ pub struct Cli {
 
     /// Output language. Rust by default.
     #[arg(short, long, value_enum)]
-    pub language: Option<OutputLanguage>
+    pub language: Option<OutputLanguageChoice>,
+}
+
+/// Output language switch
+#[derive(Copy, Clone, PartialEq, Eq, PartialOrd, Ord, ValueEnum)]
+pub enum OutputLanguageChoice {
+    // Rust output
+    Rust,
 }
 
 impl Cli {
-pub fn apply_commandline_default(self) -> Cli {
-    Cli{
-        specifications: self.specifications,
-        output: self.output,
-        input: self.input,
-        language: Some(self.language.unwrap_or(OutputLanguage::Rust)),
+    pub fn apply_commandline_default(self) -> Cli {
+        Cli {
+            specifications: self.specifications,
+            output: self.output,
+            input: self.input,
+            language: Some(self.language.unwrap_or(OutputLanguageChoice::Rust)),
+        }
     }
-}
-
 }

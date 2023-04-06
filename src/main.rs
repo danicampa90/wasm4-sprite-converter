@@ -1,19 +1,18 @@
 use std::path::PathBuf;
 
-
+mod cli_options;
+mod encoder;
 mod errors;
 mod output;
 mod output_langs;
-mod encoder;
 mod specs;
-mod cli_options;
 
 use clap::Parser;
+use cli_options::{Cli, OutputLanguageChoice};
 use errors::AppError;
 use image::RgbImage;
-use output::{OutputResult, EncodedSprite, OutputLanguage};
-use output_langs::{ConsoleOutput, Encoder, FileOutput, OutputDevice, RustEncoder};
-use cli_options::Cli;
+use output::{EncodedSprite, OutputResult};
+use output_langs::{ConsoleOutput, FileOutput, OutputDevice, OutputLanguage, RustEncoder};
 
 use crate::specs::MergedSpriteSpecs;
 
@@ -47,15 +46,14 @@ fn wrapped_main() -> Result<(), AppError> {
     Ok(())
 }
 
-
 fn write_results(output: &OutputResult, options: &Cli) -> Result<(), AppError> {
     let mut writer: Box<dyn OutputDevice> = match &options.output {
         None => Box::new(ConsoleOutput::new()),
         Some(filename) => Box::new(FileOutput::new(filename)?),
     };
 
-    let encoder: Box<dyn Encoder> = match options.language.unwrap() { 
-        OutputLanguage::Rust => Box::new(RustEncoder::new())
+    let encoder: Box<dyn OutputLanguage> = match options.language.unwrap() {
+        OutputLanguageChoice::Rust => Box::new(RustEncoder::new()),
     };
     encoder.write_to(output, &mut *writer)?;
     Ok(())

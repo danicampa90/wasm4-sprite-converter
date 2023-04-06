@@ -7,7 +7,7 @@ pub fn encode_sprite(
     sprite_spec: &MergedSpriteSpecs,
     image: &RgbImage,
 ) -> Result<EncodedSprite, AppError> {
-    // a list of palette indexes corresponding to each pixel.  
+    // a list of palette indexes corresponding to each pixel.
     let mut pixel_palette_indexes = vec![];
 
     // scan image and get the indexes into the palette
@@ -43,17 +43,17 @@ pub fn encode_sprite(
 
     // each "big step" keeps track of the index into pixel_palette_indexes, so that at the beginning of each step it's aligned with a byte.
     // this guarantees that for each big step we can write out a byte to the output.
-    for big_step_idx in (0..pixel_palette_indexes.len()).step_by(8/sprite_spec.bpp) {
+    for big_step_idx in (0..pixel_palette_indexes.len()).step_by(8 / sprite_spec.bpp) {
         let mut byte: u8 = 0;
         // for each "intrabyte step" we bit-manipulate the byte that will be written in the outer loop
-        for intrabyte_idx in 0..(8/sprite_spec.bpp) {
+        for intrabyte_idx in 0..(8 / sprite_spec.bpp) {
             byte = byte << sprite_spec.bpp;
             let pixel = pixel_palette_indexes
                 .get(intrabyte_idx + big_step_idx)
                 .cloned();
-            
+
             // if we run out of pixels to write we still need to pad this last byte with zeroes.
-            byte |= pixel.unwrap_or(0) as u8; 
+            byte |= pixel.unwrap_or(0) as u8;
             //println!("{:08b}: {:?}",byte, pixel )
         }
         //println!("{:08b}", byte);
